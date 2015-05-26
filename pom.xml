@@ -9,7 +9,6 @@
 		<org.springframework.version>4.1.6.RELEASE</org.springframework.version>
 		<netty.version>4.0.28.Final</netty.version>
 		<slf4j.version>1.7.5</slf4j.version>
-		<logback.version>1.0.13</logback.version>
 		<junit.version>4.11</junit.version>
 		<liangzhi.commons.version>0.12-SNAPSHOT</liangzhi.commons.version>
 	</properties>

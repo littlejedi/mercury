@@ -6,6 +6,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.util.CharsetUtil;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-import com.liangzhi.mercury.handlers.StringProtocolInitializer;
+import com.liangzhi.mercury.handlers.ServerChannelInitializer;
 
 
 /**
@@ -64,8 +65,7 @@ public class SpringConfig {
     private String log4jConfiguration;
 
     @Autowired
-    @Qualifier("springProtocolInitializer")
-    private StringProtocolInitializer protocolInitalizer;
+    private ServerChannelInitializer serverChannelInitalizer;
 
     @SuppressWarnings("unchecked")
     @Bean(name = "serverBootstrap")
@@ -73,7 +73,7 @@ public class SpringConfig {
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup(), workerGroup())
                 .channel(NioServerSocketChannel.class)
-                .childHandler(protocolInitalizer);
+                .childHandler(serverChannelInitalizer);
         Map<ChannelOption<?>, Object> tcpChannelOptions = tcpChannelOptions();
         Set<ChannelOption<?>> keySet = tcpChannelOptions.keySet();
         for (@SuppressWarnings("rawtypes")
@@ -106,14 +106,9 @@ public class SpringConfig {
         return options;
     }
 
-    @Bean(name = "stringEncoder")
-    public StringEncoder stringEncoder() {
-        return new StringEncoder();
-    }
-
     @Bean(name = "stringDecoder")
     public StringDecoder stringDecoder() {
-        return new StringDecoder();
+        return new StringDecoder(CharsetUtil.UTF_8);
     }
 
     /**

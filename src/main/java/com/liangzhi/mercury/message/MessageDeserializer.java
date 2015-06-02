@@ -14,5 +14,18 @@ public class MessageDeserializer {
     private MessageDeserializer() {
         //Hidden on purpose
     }
-
+    
+    public static Message fromJSON(String json) throws Exception {
+        try {
+            return MAPPER.readValue(json, Message.class);
+        } catch (Exception e) {
+            LOGGER.error("Error deserializing incoming JSON to Message. JSON:{}", json);
+            // Propagate the exception here so the error handler will handle it
+            throw e;
+        }
+    }
+    
+    public ObjectMapper getObjectMapper() {
+        return MAPPER;
+    }
 }

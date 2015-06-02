@@ -17,6 +17,11 @@ public class Message {
     private String id;
     
     /**
+     * Indicates the device ID
+     */
+    private String deviceId;
+    
+    /**
      * Indicates the device key of this message - device key is unique for each device
      */
     private String deviceKey;
@@ -83,6 +88,10 @@ public class Message {
         this.payload = payload;
     }
     
+    public Object getPayload() {
+        return payload;
+    }
+    
     /** 
      * Use this method to get the raw JSON payload for deserialization 
      * Won't be used during serialization
@@ -94,6 +103,14 @@ public class Message {
 
     public void setPayload(Object payload) {
         this.payload = payload;
+    }
+    
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String getResponseCode() {

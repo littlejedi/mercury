@@ -11,7 +11,7 @@ import com.liangzhi.commons.mybatis.HasValueEnum;
  */
 public enum MessageType implements HasValueEnum {
     
-    INSTANT_SENSOR_DATA_SYNC(0);
+    SENSOR_DATA_PUSH(0);
 
     private int value;
     

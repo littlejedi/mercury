@@ -1,5 +1,7 @@
 package com.liangzhi.mercury.elastic.model;
 
+import java.util.UUID;
+
 import com.google.common.base.Objects;
 
 /**
@@ -21,6 +23,15 @@ public class SensorDataPointDocument {
     private String sensorDataValue;
     
     private long sensorDataTimestamp;
+    
+    public SensorDataPointDocument(String sensorId, String deviceId, int sensorDataType, String sensorDataValue, long sensorDataTimestamp) {
+        this.id = UUID.randomUUID().toString();
+        this.deviceId = deviceId;
+        this.sensorId = sensorId;
+        this.sensorDataType = sensorDataType;
+        this.sensorDataValue = sensorDataValue;
+        this.sensorDataTimestamp = sensorDataTimestamp;
+    }
 
     public String getId() {
         return id;

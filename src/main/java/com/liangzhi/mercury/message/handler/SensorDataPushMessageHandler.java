@@ -6,11 +6,13 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.liangzhi.mercury.elastic.ElasticSearchClient;
 import com.liangzhi.mercury.elastic.model.SensorDataPointDocument;
 import com.liangzhi.mercury.message.Message;
 import com.liangzhi.mercury.message.MessageDeserializer;
@@ -21,6 +23,9 @@ import com.liangzhi.mercury.message.payload.SensorDataPoint;
 public class SensorDataPushMessageHandler extends AbstractMessageHandler {
     
     private Logger LOGGER = LoggerFactory.getLogger(SensorDataPushMessageHandler.class);
+    
+    @Autowired
+    private ElasticSearchClient elasticSearchClient;
 
     @Override
     public MessageType getHandledType() {
@@ -30,14 +35,14 @@ public class SensorDataPushMessageHandler extends AbstractMessageHandler {
     @Override
     protected Optional<Message> doHandleMessage(Message message,
             ChannelHandlerContext ctx) throws Exception {
+        final String payload = message.getPayloadAsRawJson();
         Preconditions.checkArgument(message.getPayload() != null, "Payload should NOT be null");
-        //List<SensorDataRecord> records = MessageDeserializer.deserializeSensorDataSyncPayload(message.getPayloadAsRawJson());
-        //LOGGER.info("Message payload successfully deserialized and converted into a list of SensorDataRecords of size={}", records.size());
+        final List<SensorDataPointDocument> docs = processPayload(message.getDeviceId(), payload);
         // We do not need to reply to this message
         return Optional.<Message>absent();
     }
     
-    private List<SensorDataPointDocument> processPayload(String payload) throws Exception {
+    private List<SensorDataPointDocument> processPayload(String deviceId, String payload) throws Exception {
         Preconditions.checkNotNull(payload, "Paylod should not be null!");
         try {
             SensorDataPoint[] dataPoints = MessageDeserializer.MAPPER.readValue(payload, SensorDataPoint[].class);
@@ -47,7 +52,9 @@ public class SensorDataPushMessageHandler extends AbstractMessageHandler {
                 String sensorValue = dataPoint.getSensorDataValue();
                 Long timestamp = dataPoint.getSensorDataTimestamp();
                 int sensorDataType = dataPoint.getSensorDataType();
-
+                SensorDataPointDocument doc = 
+                        new SensorDataPointDocument(sensorId, deviceId, sensorDataType, sensorValue, timestamp);
+                
             }
             return result;
         } catch (Exception e) {

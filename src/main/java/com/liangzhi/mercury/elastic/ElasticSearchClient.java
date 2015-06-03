@@ -33,7 +33,7 @@ public class ElasticSearchClient {
     private Client client;
     private ObjectMapper MAPPER = new ObjectMapper();
     
-    public ElasticSearchClient() {
+    public ElasticSearchClient(String host, int port) {
        // on startup
        this.client = new TransportClient()
                 .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));

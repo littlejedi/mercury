@@ -23,6 +23,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
+import com.liangzhi.mercury.elastic.ElasticSearchClient;
 import com.liangzhi.mercury.handlers.ServerChannelInitializer;
 
 
@@ -60,6 +61,12 @@ public class SpringConfig {
 
     @Value("${so.backlog}")
     private int backlog;
+    
+    @Value("${elastic.host}")
+    private String elasticHost;
+    
+    @Value("${elastic.port}")
+    private int elasticPort;
     
     @Value("${log4j.configuration}")
     private String log4jConfiguration;
@@ -109,6 +116,11 @@ public class SpringConfig {
     @Bean(name = "stringDecoder")
     public StringDecoder stringDecoder() {
         return new StringDecoder(CharsetUtil.UTF_8);
+    }
+    
+    @Bean(name = "elasticSearchClient")
+    public ElasticSearchClient elasticSearchClient() {
+        return new ElasticSearchClient(this.elasticHost, this.elasticPort);
     }
 
     /**

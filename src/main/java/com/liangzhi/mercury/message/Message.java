@@ -29,7 +29,7 @@ public class Message {
     /**
      * UTC timestamp of when the message was originated
      */
-    private Long created;
+    private long created;
     
     /**
      * Message type
@@ -67,11 +67,11 @@ public class Message {
         this.deviceKey = deviceKey;
     }
 
-    public Long getCreated() {
+    public long getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    public void setCreated(long created) {
         this.created = created;
     }
 

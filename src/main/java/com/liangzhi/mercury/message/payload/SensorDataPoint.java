@@ -2,7 +2,7 @@ package com.liangzhi.mercury.message.payload;
 
 import com.google.common.base.Objects;
 
-public class SensorDataPush {
+public class SensorDataPoint {
     
     /**
      * Identifies a sensor, ID should be already generated for the user
@@ -23,7 +23,7 @@ public class SensorDataPush {
     /**
      * UTC timestamp of when the data was collected
      */
-    private Long sensorDataTimestamp;
+    private long sensorDataTimestamp;
 
     public String getSensorId() {
         return sensorId;
@@ -49,11 +49,11 @@ public class SensorDataPush {
         this.sensorDataValue = sensorDataValue;
     }
 
-    public Long getSensorDataTimestamp() {
+    public long getSensorDataTimestamp() {
         return sensorDataTimestamp;
     }
 
-    public void setSensorDataTimestamp(Long sensorDataTimestamp) {
+    public void setSensorDataTimestamp(long sensorDataTimestamp) {
         this.sensorDataTimestamp = sensorDataTimestamp;
     }
 
@@ -73,14 +73,12 @@ public class SensorDataPush {
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof SensorDataPush) {
-            SensorDataPush that = (SensorDataPush) object;
+        if (object instanceof SensorDataPoint) {
+            SensorDataPoint that = (SensorDataPoint) object;
             return Objects.equal(this.sensorId, that.sensorId)
                     && Objects.equal(this.sensorDataType, that.sensorDataType)
-                    && Objects
-                            .equal(this.sensorDataValue, that.sensorDataValue)
-                    && Objects.equal(this.sensorDataTimestamp,
-                            that.sensorDataTimestamp);
+                    && Objects.equal(this.sensorDataValue, that.sensorDataValue)
+                    && Objects.equal(this.sensorDataTimestamp, that.sensorDataTimestamp);
         }
         return false;
     }

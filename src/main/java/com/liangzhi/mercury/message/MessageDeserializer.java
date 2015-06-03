@@ -9,7 +9,7 @@ public class MessageDeserializer {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageDeserializer.class);
     
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    public static final ObjectMapper MAPPER = new ObjectMapper();
     
     private MessageDeserializer() {
         //Hidden on purpose
@@ -23,9 +23,5 @@ public class MessageDeserializer {
             // Propagate the exception here so the error handler will handle it
             throw e;
         }
-    }
-    
-    public ObjectMapper getObjectMapper() {
-        return MAPPER;
     }
 }

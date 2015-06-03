@@ -20,19 +20,22 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liangzhi.mercury.elastic.model.SensorDataPointDocument;
 
 public class ElasticSearchClient {
     
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchClient.class);
+    
     private Client client;
     private ObjectMapper MAPPER = new ObjectMapper();
-
+    
     public ElasticSearchClient() {
-
-        // on startup
-        this.client = new TransportClient()
+       // on startup
+       this.client = new TransportClient()
                 .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
     }
 

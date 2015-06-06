@@ -100,10 +100,6 @@ public class Message {
     public String getPayloadAsRawJson() {
         return payload == null ? null : payload.toString();
     }
-
-    public void setPayload(Object payload) {
-        this.payload = payload;
-    }
     
     public String getDeviceId() {
         return deviceId;

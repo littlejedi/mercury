@@ -10,13 +10,13 @@ public class SensorDataPoint {
     private String sensorId;
     
     /**
-     * For data type, this should be a double, for image and video, this should be the file path
-     * Tentative, may delete this
+     * Sensor data type
      */
     private int sensorDataType;
     
     /**
-     * Value of this data push
+     * For regular sensor, this should be a double, for image and video, this should be the file path
+     * Tentative, may delete this
      */
     private String sensorDataValue;
     

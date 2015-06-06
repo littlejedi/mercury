@@ -1,4 +1,4 @@
-package com.liangzhi.mercury.message.handler;
+package com.liangzhi.mercury.message.handlers;
 
 import com.liangzhi.mercury.message.Message;
 import com.liangzhi.mercury.message.MessageType;

@@ -24,7 +24,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import com.liangzhi.mercury.elastic.ElasticSearchClient;
-import com.liangzhi.mercury.handlers.ServerChannelInitializer;
+import com.liangzhi.mercury.message.handlers.ServerChannelInitializer;
 
 
 /**

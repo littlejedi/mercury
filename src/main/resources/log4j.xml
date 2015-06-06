@@ -47,7 +47,7 @@
   </logger>
   
   <root> 
-    <priority value ="INFO" /> 
+    <priority value ="DEBUG" /> 
     <appender-ref ref="Stdout" />
     <appender-ref ref="File" />  
     <appender-ref ref="Error" />

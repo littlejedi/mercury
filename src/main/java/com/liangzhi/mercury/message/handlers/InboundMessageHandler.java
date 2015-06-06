@@ -1,4 +1,4 @@
-package com.liangzhi.mercury.message.handler;
+package com.liangzhi.mercury.message.handlers;
 
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;

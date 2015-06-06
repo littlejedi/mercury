@@ -1,4 +1,4 @@
-package com.liangzhi.mercury.message.handler;
+package com.liangzhi.mercury.message.handlers;
 
 import java.util.List;
 import java.util.Map;

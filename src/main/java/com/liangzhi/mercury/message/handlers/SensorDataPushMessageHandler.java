@@ -1,4 +1,4 @@
-package com.liangzhi.mercury.message.handler;
+package com.liangzhi.mercury.message.handlers;
 
 import io.netty.channel.ChannelHandlerContext;
 
@@ -54,7 +54,7 @@ public class SensorDataPushMessageHandler extends AbstractMessageHandler {
                 int sensorDataType = dataPoint.getSensorDataType();
                 SensorDataPointDocument doc = 
                         new SensorDataPointDocument(sensorId, deviceId, sensorDataType, sensorValue, timestamp);
-                
+                LOGGER.info("Indexed sensor data point document={}", doc.toString());               
             }
             return result;
         } catch (Exception e) {

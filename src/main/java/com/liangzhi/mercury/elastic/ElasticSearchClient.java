@@ -35,8 +35,8 @@ public class ElasticSearchClient {
     
     public ElasticSearchClient(String host, int port) {
        // on startup
-       this.client = new TransportClient()
-                .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+       //this.client = new TransportClient()
+       //         .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
     }
 
     public void indexSensorDataDocument(SensorDataPointDocument doc) throws Exception {

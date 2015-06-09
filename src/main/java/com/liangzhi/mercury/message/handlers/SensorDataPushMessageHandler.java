@@ -48,6 +48,7 @@ public class SensorDataPushMessageHandler extends AbstractMessageHandler {
             SensorDataPoint[] dataPoints = MessageDeserializer.MAPPER.readValue(payload, SensorDataPoint[].class);
             List<SensorDataPointDocument> result = Lists.newArrayListWithCapacity(dataPoints.length);
             for (SensorDataPoint dataPoint : dataPoints) {
+                validateSensorDataPoint(dataPoint);
                 String sensorId = dataPoint.getSensorId();
                 String sensorValue = dataPoint.getSensorDataValue();
                 Long timestamp = dataPoint.getSensorDataTimestamp();
@@ -63,6 +64,12 @@ public class SensorDataPushMessageHandler extends AbstractMessageHandler {
                     payload);
             throw e;
         }
+    }
+    
+    private void validateSensorDataPoint(SensorDataPoint dpt) throws Exception {
+        Preconditions.checkNotNull(dpt.getSensorId(), "Sensor ID shoud not be null!");
+        Preconditions.checkNotNull(dpt.getSensorDataValue(), "Sensor value should not be null!");
+        Preconditions.checkNotNull(dpt.getSensorDataType(), "Sensor data type should not be null!");
     }
 
 }

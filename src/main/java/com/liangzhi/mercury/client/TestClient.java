@@ -47,12 +47,13 @@ public class TestClient {
         Message m = new Message();
         m.setCreated(DateTime.now(DateTimeZone.UTC).getMillis());
         m.setDeviceId(UUID.randomUUID().toString());
-        m.setDeviceKey(UUID.randomUUID().toString());
+        m.setDeveloperToken(UUID.randomUUID().toString());
         m.setId(UUID.randomUUID().toString());
         m.setType(MessageType.SENSOR_DATA_PUSH);
         // create payload
         SensorDataPoint p = new SensorDataPoint();
         p.setSensorDataTimestamp(DateTime.now(DateTimeZone.UTC).getMillis());
+        p.setSensorId(UUID.randomUUID().toString());
         p.setSensorDataType(0);
         p.setSensorDataValue("12345");
         List<SensorDataPoint> pts = new ArrayList<SensorDataPoint>();

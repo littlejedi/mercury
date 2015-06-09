@@ -35,8 +35,9 @@ public class MessageDecoder extends MessageToMessageDecoder<String> {
     private void validateMessage(Message message) {
         // Validate message
         Preconditions.checkNotNull("Message id should not be null", message.getId());
+        Preconditions.checkNotNull("Username should not be null", message.getUsername());
+        Preconditions.checkNotNull("User developer token should not be null", message.getDeveloperToken());
         Preconditions.checkNotNull("Device id should not be null", message.getDeviceId());
-        Preconditions.checkNotNull("Device key should not be null", message.getDeviceKey());
         Preconditions.checkNotNull("Message created timestamp should not be null", message.getCreated());
         Preconditions.checkNotNull("Message type should not be null", message.getType());
     }

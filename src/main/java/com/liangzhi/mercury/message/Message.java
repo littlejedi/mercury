@@ -17,14 +17,19 @@ public class Message {
     private String id;
     
     /**
+     * Indicates the user whose device is sending this message
+     */
+    private String username;
+    
+    /**
      * Indicates the device ID
      */
     private String deviceId;
     
     /**
-     * Indicates the device key of this message - device key is unique for each device
+     * Indicates the user developer token that is uniquely assigned to this user
      */
-    private String deviceKey;
+    private String developerToken;
     
     /**
      * UTC timestamp of when the message was originated
@@ -58,13 +63,21 @@ public class Message {
     public void setId(String id) {
         this.id = id;
     }
-
-    public String getDeviceKey() {
-        return deviceKey;
+    
+    public String getUsername() {
+        return username;
     }
 
-    public void setDeviceKey(String deviceKey) {
-        this.deviceKey = deviceKey;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public String getDeveloperToken() {
+        return developerToken;
+    }
+
+    public void setDeveloperToken(String developerToken) {
+        this.developerToken = developerToken;
     }
 
     public long getCreated() {
@@ -127,7 +140,7 @@ public class Message {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, deviceKey, created, type, payload,
+        return Objects.hashCode(id, developerToken, created, type, payload,
                 responseCode, errorMessage);
     }
 
@@ -136,7 +149,7 @@ public class Message {
         if (object instanceof Message) {
             Message that = (Message) object;
             return Objects.equal(this.id, that.id)
-                    && Objects.equal(this.deviceKey, that.deviceKey)
+                    && Objects.equal(this.developerToken, that.developerToken)
                     && Objects.equal(this.created, that.created)
                     && Objects.equal(this.type, that.type)
                     && Objects.equal(this.payload, that.payload)
@@ -149,7 +162,7 @@ public class Message {
     @Override
     public String toString() {
         return Objects.toStringHelper(this).add("id", id)
-                .add("deviceKey", deviceKey).add("created", created)
+                .add("deviceKey", developerToken).add("created", created)
                 .add("type", type).add("payload", payload)
                 .add("responseCode", responseCode)
                 .add("errorMessage", errorMessage).toString();

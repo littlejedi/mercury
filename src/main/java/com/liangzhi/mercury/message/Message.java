@@ -17,7 +17,7 @@ public class Message {
     private String id;
     
     /**
-     * Indicates the user whose device is sending this message
+     * Indicates the user whose device is sending this message. This should be the email of the user account
      */
     private String username;
     

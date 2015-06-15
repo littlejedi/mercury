@@ -45,9 +45,10 @@ public class TestClient {
     
     public static String generateMessage() throws Exception {
         Message m = new Message();
+        m.setUsername("14db34977e444d5e86c68cff9fb1fae8@test.com");
         m.setCreated(DateTime.now(DateTimeZone.UTC).getMillis());
         m.setDeviceId(UUID.randomUUID().toString());
-        m.setDeveloperToken(UUID.randomUUID().toString());
+        m.setDeveloperToken("272026e3a88b4eb3847595e2eb58f2cf");
         m.setId(UUID.randomUUID().toString());
         m.setType(MessageType.SENSOR_DATA_PUSH);
         // create payload

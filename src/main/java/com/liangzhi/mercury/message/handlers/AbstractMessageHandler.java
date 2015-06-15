@@ -19,16 +19,21 @@ public abstract class AbstractMessageHandler implements MessageHandler {
     @Override
     public void handleMessage(Message message, ChannelHandlerContext ctx)
             throws Exception {
-        // Check if username and developer token matches
-        User user = userService.findUserByEmail(message.getUsername());
         // Essential message properties should have already been validated in MessageDecoder
         // Logger should reflect the real handler class that's handling the message
         final Logger currentHandlerLogger = LoggerFactory.getLogger(this.getClass());
         currentHandlerLogger.info("Handling Message={}", message);
-        Optional<Message> replyMessage = doHandleMessage(message, ctx);
-        if (replyMessage.isPresent()) {
-            currentHandlerLogger.info("Reply message is present for messageId={}, replyMessageId={}", message.getId(), replyMessage.get().getId());
-            reply(replyMessage.get(), ctx);
+        boolean isDeveloperTokenValid = validateDeveloperToken(message);
+        if (!isDeveloperTokenValid) {
+            currentHandlerLogger.error("Developer token is invalid! Token = {}, username = {}", message.getDeveloperToken(), message.getUsername());
+            //TODO: Add reply here
+            return;
+        } else {
+            Optional<Message> replyMessage = doHandleMessage(message, ctx);
+            if (replyMessage.isPresent()) {
+                currentHandlerLogger.info("Reply message is present for messageId={}, replyMessageId={}", message.getId(), replyMessage.get().getId());
+                reply(replyMessage.get(), ctx);
+            }
         }
         currentHandlerLogger.info("Successfully handled messageId={}", message.getId());       
     }
@@ -48,5 +53,12 @@ public abstract class AbstractMessageHandler implements MessageHandler {
      */
     protected void reply(Message replyMessage, ChannelHandlerContext ctx) {
         //messageGateway.sendMessage(replyMessage, ctx);
+    }
+    
+    private boolean validateDeveloperToken(Message message) throws Exception {
+     // Check if username and developer token matches
+        User user = userService.findUserByEmail(message.getUsername());
+        String developerToken = user.getDeveloperToken();
+        return developerToken != null && developerToken.equals(message.getDeveloperToken());
     }
 }
